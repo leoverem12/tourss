@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+
+        <form action="{{ url_for('tours.edit_tour', id=tour.id) }}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Номер тура</label>
+                <input type="number" class="form-control" name="number" value="{{ request.form.get('number') or tour.number }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Назва тура</label>
+                <input type="text" class="form-control" name="name" value="{{ request.form.get('name') or tour.name }}">
+            </div>
+            <div class="mb-3">
+                <img src="{{ tour.img_url }}" width="100px">
+                <label class="form-label">Виберіть фото тура для заміни</label>
+                <input type="file" accept="image/*" class="form-control" name="photo">
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="is_reserved" role="switch" id="flexSwitchCheckChecked" {% if tour.is_reserved %} checked {% endif %}>
+                <label class="form-check-label" for="flexSwitchCheckChecked">Зарезервовано</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Змінити</button>
+        </form>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
